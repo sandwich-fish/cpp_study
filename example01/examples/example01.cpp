@@ -148,20 +148,27 @@ void case01() {
     copy(strVec.cbegin(), strVec.cend(), ostream_iterator<string>(cout, " "));
     cout << endl;
 
-    // convert all lower case to upper case by using for_each
-    string strTemp = "hello";
-    cout << "for_each转换前: " << endl;
-    cout << strTemp << endl;
-    struct Upper {
-        void operator() (char c) {
-            str.push_back(toupper(c));
-        }
+    // 定义lambda，并使用for_each和Function Object对字符串进行大小写转换
+    auto f = [=](const string& str) {
+        struct Upper {
+            void operator() (char c) {
+                str.push_back(toupper(c));
+            }
 
-        string str;
+            string str;
+        };
+        Upper upper = for_each(str.cbegin(), str.cend(), Upper());
+        return upper.str;
     };
-    Upper upper = for_each(strTemp.cbegin(), strTemp.cend(), Upper());
-    cout << "for_each转换后: " << endl;
-    cout << upper.str << endl;
+
+    vector<string> strVecRslt;
+    transform(strVec.cbegin(), strVec.cend(), back_inserter(strVecRslt), f);
+    cout << "strVec    的内容：";
+    copy(strVec.cbegin(), strVec.cend(), ostream_iterator<string>(cout, " "));
+    cout << endl;
+    cout << "strVecRslt的内容：";
+    copy(strVecRslt.cbegin(), strVecRslt.cend(), ostream_iterator<string>(cout, " "));
+    cout << endl;
 
     // 统计首字母为小写的字符串个数
     size_t nc = count_if(strVec.begin(), strVec.end(), [](auto& str) {
