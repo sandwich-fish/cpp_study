@@ -148,8 +148,8 @@ void case01() {
     copy(strVec.cbegin(), strVec.cend(), ostream_iterator<string>(cout, " "));
     cout << endl;
 
-    // 定义lambda，并使用for_each和Function Object对字符串进行大小写转换
-    auto f = [=](const string& str) {
+    vector<string> strVecRslt;
+    transform(strVec.cbegin(), strVec.cend(), back_inserter(strVecRslt), [=](const string& str) {
         struct Upper {
             void operator() (char c) {
                 str.push_back(toupper(c));
@@ -159,10 +159,8 @@ void case01() {
         };
         Upper upper = for_each(str.cbegin(), str.cend(), Upper());
         return upper.str;
-    };
+    });
 
-    vector<string> strVecRslt;
-    transform(strVec.cbegin(), strVec.cend(), back_inserter(strVecRslt), f);
     cout << "strVec    的内容：";
     copy(strVec.cbegin(), strVec.cend(), ostream_iterator<string>(cout, " "));
     cout << endl;
