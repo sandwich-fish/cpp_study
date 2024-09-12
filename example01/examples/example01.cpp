@@ -63,7 +63,7 @@ void case01() {
     list.insert_after(posBefore3, 31000);
 
     // Output result.
-    cout << "forward_list的结果: " << endl;
+    cout << "The result of forward_list: " << endl;
     copy(list.cbegin(), list.cend(), ostream_iterator<int>(cout, " "));
     cout << endl;
 
@@ -73,14 +73,14 @@ void case01() {
     coll1.insert(5);
     coll1.insert(12);
     // print all elements
-    cout << "coll1中的元素(默认排序规则为greater<int>): " << endl;
+    cout << "Elements of coll1(default compare rule: greater<int>): " << endl;
     copy(coll1.cbegin(), coll1.cend(), ostream_iterator<int>(cout, " "));
     cout << endl;
 
     // copy list to vector
     vector<int> ivec(list.cbegin(), list.cend());
     // output vector
-    cout << "复制forward_list到ivec的结果: " << endl;
+    cout << "Elements in ivec: " << endl;
     copy(ivec.cbegin(), ivec.cend(), ostream_iterator<int>(cout, " "));
     cout << endl;
 
@@ -93,7 +93,7 @@ void case01() {
     }
     cout << endl;
     set<int> coll2(coll1.cbegin(), coll1.cend());
-    cout << "coll2中的元素(默认排序规则为less<int>): ";
+    cout << "Elements in coll2(default compare rule: less<int>): ";
     copy(coll2.cbegin(), coll2.cend(), ostream_iterator<int>(cout, " "));
     cout << endl;
 
@@ -104,7 +104,7 @@ void case01() {
     // 将集合中的元素复制到ivec中
     copy(coll1.cbegin(), coll1.cend(), back_inserter(ivec));
     // output elements in ivec
-    cout << "从coll1复制到ivec中的元素: " << endl;
+    cout << "Elements of ivec copied from coll1: " << endl;
     copy(ivec.cbegin(), ivec.cend(), ostream_iterator<int>(cout, " "));
     cout << endl;
 
@@ -122,20 +122,20 @@ void case01() {
         cout << it.first << ", " << it.second << endl;
     }
 
-    // 将无序集合中的元素复制到vector中
+    // Copy elements to ivec.
     vector<string> strVec {cities.cbegin(), cities.cend()};
 
-    // 小写转大写
+    // lower case to upper case.
     for (auto strIt = strVec.begin(); strIt != strVec.end(); ++strIt) {
         transform(strIt->begin(), strIt->end(), strIt->begin(), [](auto& c) { return toupper(c);});
     }
 
     // output values in vector<string>
-    cout << "全部转大写后: " << endl;
+    cout << "Result after converting to upper case: " << endl;
     copy(strVec.cbegin(), strVec.cend(), ostream_iterator<string>(cout, " "));
     cout << endl;
 
-    // 大写转小写
+    // upper case to lower case
     for (auto it = strVec.begin(); it != strVec.end(); ++it) {
         for_each(it->begin(), it->end(), [](char& c)
         {
@@ -144,7 +144,7 @@ void case01() {
     }
 
     // output values in vector<string>
-    cout << "全部转小写后: " << endl;
+    cout << "Elements after converting to lower case: " << endl;
     copy(strVec.cbegin(), strVec.cend(), ostream_iterator<string>(cout, " "));
     cout << endl;
 
@@ -161,14 +161,14 @@ void case01() {
         return upper.str;
     });
 
-    cout << "strVec    的内容：";
+    cout << "Result of strVec:";
     copy(strVec.cbegin(), strVec.cend(), ostream_iterator<string>(cout, " "));
     cout << endl;
-    cout << "strVecRslt的内容：";
+    cout << "Result of strVecRslt:";
     copy(strVecRslt.cbegin(), strVecRslt.cend(), ostream_iterator<string>(cout, " "));
     cout << endl;
 
-    // 统计首字母为小写的字符串个数
+    // statistics all capital wrods.
     size_t nc = count_if(strVec.begin(), strVec.end(), [](auto& str) {
         if (str.length() == 0) {
             return false;
@@ -176,9 +176,9 @@ void case01() {
             return str[0] == tolower(str[0]);
         }
     });
-    cout << "首字母小写的字符串个数：" << nc << endl;
+    cout << "Number of all capitalized word:" << nc << endl;
 
-    // 首字母大写
+    // capitalize
     for (auto it = strVec.begin(); it != strVec.end(); ++it) {
         for_each_n(it->begin(), 1, [](char& c) {
             c = toupper(c);
@@ -186,7 +186,7 @@ void case01() {
     }
 
     // output values in vector<string>
-    cout << "首字母大写转换后: " << endl;
+    cout << "Capitalized: " << endl;
     copy(strVec.cbegin(), strVec.cend(), ostream_iterator<string>(cout, " "));
     cout << endl;
 
@@ -195,8 +195,8 @@ void case01() {
         coll.push_back(i);
     }
 
-    // 使用反向迭代器输出
-    cout << "使用反向迭代器输出: " << endl;
+    // reverse iterator
+    cout << "Result of using reverse iterator: " << endl;
     copy(coll.crbegin(), coll.crend(), ostream_iterator<int>(cout, " "));
     cout << endl;
 }
